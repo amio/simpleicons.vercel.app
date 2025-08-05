@@ -15,7 +15,7 @@
     "node": "22.x"
   },
   "devDependencies": {
-    "@vercel/node": "^5.3.8",
+    "@vercel/node": "^5.3.11",
     "hyper-marked": "^1.1.0"
   }
 }
