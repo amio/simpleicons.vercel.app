@@ -5,10 +5,16 @@ import { readFileSync } from 'fs'
 
 const readmeMarkdown = readFileSync(join(__dirname, '../README.md'), 'utf-8')
 
-import type { VercelResponse } from '@vercel/node';
-import { IncomingMessage } from 'http';
+import { IncomingMessage, ServerResponse } from 'http';
 
-export default function handler(request: IncomingMessage, response: VercelResponse) {
+// Vercel runtime augments ServerResponse with helper methods
+interface VercelServerResponse extends ServerResponse {
+  status(code: number): this;
+  send(body: any): this;
+  json(data: any): this;
+}
+
+export default function handler(request: IncomingMessage, response: VercelServerResponse) {
   if (request.method === 'GET' && request.url === '/') {
     // Serve the home page with README content
     response.setHeader('Content-Type', 'text/html; charset=utf-8');
